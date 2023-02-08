@@ -5,7 +5,8 @@ import '../../main.dart';
 import '../../uifunctions.dart';
 import 'compo/chatappbar.dart';
 import 'compo/chatbody.dart';
-//chatbody is still unfinished
+import 'compo/chatfab.dart';
+//only chatnavbar remains
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
   @override
@@ -18,10 +19,29 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: chatAppBar(context),
-    body: ChatBody(),
-
+    body: const ChatBody(),
+    floatingActionButton: chatFab(),
+    bottomNavigationBar: BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      currentIndex: _index,
+      onTap: (value) {
+        setState(() {
+          _index = value;
+        });
+      },
+      items: [
+        BottomNavigationBarItem(icon: Icon(Icons.messenger), label: "Chats"),
+        BottomNavigationBarItem(icon: Icon(Icons.people), label: "People"),
+        BottomNavigationBarItem(icon: Icon(Icons.call), label: "Calls"),
+        BottomNavigationBarItem(
+          icon: CircleAvatar(
+            radius: 14,
+            backgroundImage: AssetImage("assets/images/user_2.png"),
+          ),
+          label: "Profile",
+        ),
+      ],
+    ),
   );
 }
-
-
 

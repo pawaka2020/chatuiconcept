@@ -8,6 +8,7 @@ import '../../../constants.dart';
 import '../../../main.dart';
 import '../../../model/Chat.dart';
 import '../../../uifunctions.dart';
+import '../../message/messagescreen.dart';
 
 class ChatBody extends StatelessWidget {
   const ChatBody({Key? key}) : super(key: key);
@@ -45,11 +46,12 @@ Container topBody(BuildContext context){
 }
 //we need to implement the Users model first.
 //also Chatcard component
+//here we navigate to MessageScreen.
 Expanded bottomBody(int length, BuildContext context) => Expanded(child:
   ListView.builder(
     itemCount: length,
     itemBuilder: (context, index) => ChatCard(
       chat: chatsData[index],
-      pressCallback:()=> navigateTo(context, const HelloWorld()))
+      pressCallback:()=> navigateTo(context, const MessageScreen()))
   ),
 );
