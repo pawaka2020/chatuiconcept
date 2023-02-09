@@ -14,6 +14,7 @@ class Chat {
   });
 }
 //for now, we will use placeholder data, but later we will implement a database.
+//information to be displayed on card of chatscreen
 //suggested database either sqflite or supabase
 List chatsData = [
   Chat(

@@ -15,6 +15,7 @@ class Message{
   });
 }
 //we use own repo first
+//rightnow this represents the same chat log for all users of the platform.
 List MessageList = [
   Message(
     text: "Hi Sajol,",

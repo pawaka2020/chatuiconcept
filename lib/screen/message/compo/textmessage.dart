@@ -15,9 +15,9 @@ class TextMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-    color: MediaQuery.of(context).platformBrightness == Brightness.dark
-        ? Colors.white
-        : Colors.black,
+    // color: MediaQuery.of(context).platformBrightness == Brightness.dark
+    //     ? Colors.white
+    //     : Colors.black,
     padding: const EdgeInsets.symmetric(
       horizontal: defaultPadding * 0.75,
       vertical: defaultPadding / 2,

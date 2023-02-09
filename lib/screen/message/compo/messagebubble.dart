@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 import '../../../model/messages.dart';
+import 'messagecontent.dart';
 
 //we will try to tweak this later
 class MessageBubble extends StatelessWidget {
@@ -26,7 +27,7 @@ class MessageBubble extends StatelessWidget {
           ),
           SizedBox(width: defaultPadding / 2)
         ],
-        //messageContents(message),
+        messageContent(message), //this is the problem
         //if (message.isSender)MessageStatusDot(status)
       ]
     )
