@@ -1,24 +1,22 @@
-
-
 import 'package:chatuiconcept/commoncompo/filloutlinebutton.dart';
 import 'package:chatuiconcept/screen/chat/compo/chatcard.dart';
 import 'package:flutter/cupertino.dart';
-
 import '../../../constants.dart';
-import '../../../main.dart';
-import '../../../model/Chat.dart';
+import '../../../model/chat.dart';
 import '../../../uifunctions.dart';
 import '../../message/messagescreen.dart';
 
+//for now I only call chatlist from this widget but I will improve the architecture
 class ChatBody extends StatelessWidget {
   const ChatBody({Key? key}) : super(key: key);
-
-
   @override
-  Widget build(BuildContext context) => Column(children:[
-    topBody(context),
-    bottomBody(chatsData.length, context)
-  ]);
+  Widget build(BuildContext context){
+    List chatlist = ChatService().get_offline();
+    return Column(children:[
+      topBody(context),
+      bottomBody(chatlist, context)
+    ]);
+  }
 }
 
 Container topBody(BuildContext context){
@@ -47,11 +45,21 @@ Container topBody(BuildContext context){
 //we need to implement the Users model first.
 //also Chatcard component
 //here we navigate to MessageScreen.
-Expanded bottomBody(int length, BuildContext context) => Expanded(child:
-  ListView.builder(
-    itemCount: length,
+// Expanded bottomBody(int length, BuildContext context) => Expanded(child:
+//   ListView.builder(
+//     itemCount: length,
+//     itemBuilder: (context, index) => ChatCard(
+//       //chat: chatsData[index],
+//       chat:ChatService().get_offline()[index],
+//       pressCallback:()=> navigateTo(context, const MessageScreen()))
+//   ),
+// );
+
+Expanded bottomBody(List chatlist, BuildContext context) => Expanded(child:
+ListView.builder(
+    itemCount: chatlist.length,
     itemBuilder: (context, index) => ChatCard(
-      chat: chatsData[index],
-      pressCallback:()=> navigateTo(context, const MessageScreen()))
-  ),
+        chat:chatlist[index],
+        pressCallback:()=> navigateTo(context, const MessageScreen()))
+),
 );

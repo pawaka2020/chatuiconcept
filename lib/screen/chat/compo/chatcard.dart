@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
-import '../../../model/Chat.dart';
+import '../../../model/chat.dart';
 
 //a Card UI that holds conversations
 //links to the Chat model class in model/chatscreen.dart

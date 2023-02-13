@@ -1,3 +1,5 @@
+import 'package:chatuiconcept/model/services.dart';
+
 enum MessageType { text, audio, image, video }
 enum MessageStatus { not_sent, not_view, viewed }
 
@@ -6,57 +8,61 @@ class Message{
   final MessageType type;
   final MessageStatus status;
   final bool isSender;
-
-  Message({
-    this.text = '',
-    required this.type,
-    required this.status,
-    required this.isSender
-  });
+  Message(this.text, this.type, this.status, this.isSender);
 }
-//we use own repo first
-//rightnow this represents the same chat log for all users of the platform.
-List MessageList = [
-  Message(
-    text: "Hi Sajol,",
-    type: MessageType.text,
-    status: MessageStatus.viewed,
-    isSender: false,
-  ),
-  Message(
-    text: "Hello, How are you?",
-    type: MessageType.text,
-    status: MessageStatus.viewed,
-    isSender: true,
-  ),
-  Message(
-    text: "",
-    type: MessageType.audio,
-    status: MessageStatus.viewed,
-    isSender: false,
-  ),
-  Message(
-    text: "",
-    type: MessageType.video,
-    status: MessageStatus.viewed,
-    isSender: true,
-  ),
-  Message(
-    text: "Error happend",
-    type: MessageType.text,
-    status: MessageStatus.not_sent,
-    isSender: true,
-  ),
-  Message(
-    text: "This looks great man!!",
-    type: MessageType.text,
-    status: MessageStatus.viewed,
-    isSender: false,
-  ),
-  Message(
-    text: "Glad you like it",
-    type: MessageType.text,
-    status: MessageStatus.not_view,
-    isSender: true,
-  ),
-];
+
+class MessageService extends Services{
+  @override
+  List get_offline() {
+    return [
+      Message(
+        "Hi Sajol,",
+        MessageType.text,
+        MessageStatus.viewed,
+        false,
+      ),
+      Message(
+        "Hello, How are you?",
+        MessageType.text,
+        MessageStatus.viewed,
+        true,
+      ),
+      Message(
+        "",
+        MessageType.audio,
+        MessageStatus.viewed,
+        false,
+      ),
+      Message(
+        "",
+        MessageType.video,
+        MessageStatus.viewed,
+        true,
+      ),
+      Message(
+        "Error happened",
+        MessageType.text,
+        MessageStatus.not_sent,
+        true,
+      ),
+      Message(
+        "This looks great man!!",
+        MessageType.text,
+        MessageStatus.viewed,
+        false,
+      ),
+      Message(
+        "Glad you like it",
+        MessageType.text,
+        MessageStatus.not_view,
+        true,
+      ),
+    ];
+  }
+
+  @override
+  List get_supabase() {
+    // TODO: implement get_supabase
+    throw UnimplementedError();
+  }
+}
