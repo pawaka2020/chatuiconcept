@@ -45,7 +45,7 @@ class ChatInputField extends StatelessWidget {
                     .withOpacity(0.64),
               ),
               SizedBox(width: defaultPadding / 4),
-              Expanded(
+              const Expanded(
                 child: TextField(
                   decoration: InputDecoration(
                     hintText: "Type message",

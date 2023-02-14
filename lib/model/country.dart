@@ -3,7 +3,7 @@ import 'dart:core';
 
 import 'package:flutter/cupertino.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
+//this is not used in the chatroom app but only added for testing connection to database
 class Country
 {
   final String name;

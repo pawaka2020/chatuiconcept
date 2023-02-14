@@ -14,18 +14,18 @@ class MessageBubble extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) => Padding(
-    padding: EdgeInsets.only(top: defaultPadding),
+    padding: const EdgeInsets.only(top: defaultPadding),
     child:Row(
       //puts message bubble to the right(end) if isSender
       mainAxisAlignment:
         message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
       children:[
         if (!message.isSender)...[
-          CircleAvatar(
+          const CircleAvatar(
               radius:12,
               backgroundImage: AssetImage("assets/images/user_2.png")
           ),
-          SizedBox(width: defaultPadding / 2)
+          const SizedBox(width: defaultPadding / 2)
         ],
         messageContent(message), //this is the problem
         //if (message.isSender)MessageStatusDot(status)

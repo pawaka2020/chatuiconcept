@@ -22,7 +22,7 @@ class Chat {
   }
 }
 
-class ChatService extends Services{
+class ChatService extends Services  {
   @override
   List getOffline(){
     return [
@@ -84,6 +84,7 @@ class ChatService extends Services{
       ),
     ];
   }
+
   @override
   Future<List> getSupabase() async {
     final supabase = Supabase.instance.client;

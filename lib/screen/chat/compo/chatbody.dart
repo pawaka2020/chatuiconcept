@@ -2,6 +2,7 @@ import 'package:chatuiconcept/commoncompo/filloutlinebutton.dart';
 import 'package:chatuiconcept/screen/chat/compo/chatcard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../commoncompo/smallloadingicon.dart';
 import '../../../constants.dart';
 import '../../../model/chat.dart';
 import '../../../uifunctions.dart';
@@ -67,13 +68,13 @@ ListView.builder(
 ),
 );
 
-SizedBox smallLoadingIcon()=> const SizedBox(
-  width: 24,
-  height: 24,
-  child: Center(
-    child: CircularProgressIndicator(),
-  ),
-);
+// SizedBox smallLoadingIcon()=> const SizedBox(
+//   width: 24,
+//   height: 24,
+//   child: Center(
+//     child: CircularProgressIndicator(),
+//   ),
+// );
 
 Expanded bottomBody2(BuildContext context) => Expanded(child:
   FutureBuilder<List<dynamic>>(
@@ -88,6 +89,7 @@ Expanded bottomBody2(BuildContext context) => Expanded(child:
                 pressCallback:()=> navigateTo(context, const MessageScreen()))
         );
       } else if (snapshot.hasError) {
+        debugPrint("Error: ${snapshot.error}");
         return Text("Error: ${snapshot.error}");
       } else {
         return smallLoadingIcon();
