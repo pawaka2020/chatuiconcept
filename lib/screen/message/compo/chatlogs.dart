@@ -14,7 +14,7 @@ import 'messagebubble.dart';
 // ));
 
 Expanded chatLogs(){
-  List messageList = MessageService().get_offline();
+  List messageList = MessageService().getOffline();
   return Expanded(child: Padding(
     padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
     child:ListView.builder(

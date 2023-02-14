@@ -1,6 +1,7 @@
 import 'package:chatuiconcept/commoncompo/filloutlinebutton.dart';
 import 'package:chatuiconcept/screen/chat/compo/chatcard.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import '../../../model/chat.dart';
 import '../../../uifunctions.dart';
@@ -11,10 +12,12 @@ class ChatBody extends StatelessWidget {
   const ChatBody({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context){
-    List chatlist = ChatService().get_offline();
+    List<dynamic> chatlist = ChatService().getOffline();
+    //List<dynamic> chatlist = ChatService().getSupabase();
     return Column(children:[
       topBody(context),
-      bottomBody(chatlist, context)
+      //bottomBody(chatlist, context)
+      bottomBody2(context)
     ]);
   }
 }
@@ -62,4 +65,33 @@ ListView.builder(
         chat:chatlist[index],
         pressCallback:()=> navigateTo(context, const MessageScreen()))
 ),
+);
+
+SizedBox smallLoadingIcon()=> const SizedBox(
+  width: 24,
+  height: 24,
+  child: Center(
+    child: CircularProgressIndicator(),
+  ),
+);
+
+Expanded bottomBody2(BuildContext context) => Expanded(child:
+  FutureBuilder<List<dynamic>>(
+    future: ChatService().getSupabase(),
+    builder: (context, snapshot) {
+      if (snapshot.hasData) {
+        List chatlist = snapshot.data!;
+        return ListView.builder(
+            itemCount: chatlist.length,
+            itemBuilder: (context, index) => ChatCard(
+                chat: chatlist[index],
+                pressCallback:()=> navigateTo(context, const MessageScreen()))
+        );
+      } else if (snapshot.hasError) {
+        return Text("Error: ${snapshot.error}");
+      } else {
+        return smallLoadingIcon();
+      }
+    },
+  ),
 );

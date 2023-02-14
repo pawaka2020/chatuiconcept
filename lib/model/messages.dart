@@ -13,7 +13,7 @@ class Message{
 
 class MessageService extends Services{
   @override
-  List get_offline() {
+  List getOffline() {
     return [
       Message(
         "Hi Sajol,",
@@ -61,8 +61,7 @@ class MessageService extends Services{
   }
 
   @override
-  List get_supabase() {
-    // TODO: implement get_supabase
-    throw UnimplementedError();
+  Future<List> getSupabase() async {
+    return [];
   }
 }

@@ -83,7 +83,6 @@ Expanded messageDisplay(String name, String lastMessage) => Expanded(child:
         ]
       ),
   ),
-
 );
 
 //displays the time

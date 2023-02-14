@@ -1,18 +1,30 @@
 
-import 'package:chatuiconcept/model/services.dart';
+import 'dart:convert';
 
+import 'package:chatuiconcept/model/services.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 class Chat {
-  final String name; //TODO: explain
-  final String lastMessage; //TODO: explain
-  final String image; //TODO: explain
-  final String time; //may change this from String to DateTime
-  final bool isActive; //TODO: explain
+  final String name;
+  final String lastMessage;
+  final String image;
+  final String time;
+  final bool isActive;
   Chat(this.name, this.lastMessage, this.image, this.time, this.isActive);
+
+  factory Chat.fromJson(Map<String, dynamic> json) {
+    return Chat(
+      json['name'] as String,
+      json['lastmessage'] as String,
+      json['image'] as String,
+      json['time'] as String,
+      json['isactive'] as bool,
+    );
+  }
 }
 
 class ChatService extends Services{
   @override
-  List get_offline(){
+  List getOffline(){
     return [
       Chat(
         "Jenny Wilson",
@@ -67,13 +79,22 @@ class ChatService extends Services{
         "Ralph Edwards",
         "Do you have update...",
         "assets/images/user_3.png",
-        "5d ago",
+          "5d ago",
         false,
       ),
     ];
   }
   @override
-  List get_supabase() {
+  Future<List> getSupabase() async {
+    final supabase = Supabase.instance.client;
+    final response = await supabase.from('chats').select();
+    //print(jsonEncode(response));
+    List<dynamic> jsonArray = jsonDecode(jsonEncode(response));
+    List<Chat> result = jsonArray.map((e) =>
+        Chat.fromJson(e)).toList();
+    return result;
+  }
+  List getsb() {
     return [];
   }
 }
