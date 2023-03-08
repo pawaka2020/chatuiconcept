@@ -19,5 +19,9 @@ Future<List<Country>> getCountries() async {
   List<dynamic> jsonArray = jsonDecode(jsonEncode(response));
   List<Country> countries = jsonArray.map((e) =>
       Country.fromJson(e)).toList();
+  for (var country in countries)
+  {
+    debugPrint(country.name);
+  }
   return countries;
 }

@@ -86,7 +86,7 @@ class ChatService extends Services  {
   }
 
   @override
-  Future<List> getSupabase() async {
+  Future<List> getSupabase(bool test) async {
     final supabase = Supabase.instance.client;
     final response = await supabase.from('chats').select();
     //print(jsonEncode(response));

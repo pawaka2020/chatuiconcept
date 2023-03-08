@@ -78,7 +78,7 @@ ListView.builder(
 
 Expanded bottomBody2(BuildContext context) => Expanded(child:
   FutureBuilder<List<dynamic>>(
-    future: ChatService().getSupabase(),
+    future: ChatService().getSupabase(false),
     builder: (context, snapshot) {
       if (snapshot.hasData) {
         List chatlist = snapshot.data!;

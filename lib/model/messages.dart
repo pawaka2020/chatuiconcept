@@ -78,7 +78,7 @@ class MessageService extends Services{
   }
 
   @override
-  Future<List> getSupabase() async {
+  Future<List> getSupabase(bool test) async {
     final supabase = Supabase.instance.client;
     final response = await supabase.from('message').select();
     List<dynamic> jsonArray = jsonDecode(jsonEncode(response));

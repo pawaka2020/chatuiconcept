@@ -30,7 +30,7 @@ Expanded chatLogs() {
   return Expanded(child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
       child: FutureBuilder<List<dynamic>>(
-        future: MessageService().getSupabase(),
+        future: MessageService().getSupabase(false),
         builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
           if (snapshot.hasData) {
             List<dynamic> messageList = snapshot.data!;
