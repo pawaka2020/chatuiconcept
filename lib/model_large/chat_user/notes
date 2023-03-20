@@ -99,7 +99,6 @@ avatar_url TEXT,
 date_created TIMESTAMPTZ,
 contacts TEXT[] DEFAULT '{}'
 );
-
 CREATE INDEX name_idx_cul ON chat_users_large (name);
 CREATE INDEX email_idx_cul ON chat_users_large (email);
 

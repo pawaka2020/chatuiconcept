@@ -1,0 +1,17 @@
+CREATE TABLE friend_requests (
+  uid uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  sender_uid uuid REFERENCES chat_users_large(uid),
+  recipient_uid uuid REFERENCES chat_users_large(uid),
+  date_created timestamptz,
+  status text
+);
+
+
+
+
+todo:
+1- write to db, but check first that the same request had been sent previously.
+2- fun in supabase that auto deletes row after 10 days had elapsed.
+3- fun in flutter app that changes the 'status' in a row to either accept or reject.
+
+1- checks if there is latest entry with same senderid, recipientid

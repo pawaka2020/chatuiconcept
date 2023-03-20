@@ -6,11 +6,14 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'model/chat_user.dart';
 import 'model/country.dart';
-import 'model_large/chat_user_repository.dart';
+import 'model_large/chat_user/chat_user_repo.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+
+
 //ui works on phones but needs adjusting to work on PC browsers.
 void main() async {
-  //found in http://localhost:3000/project/default/api
-  //do NOT use localhost, use the ip address instead.
+  //found in http://localhost:8000
+  //do NOT use localhost, use ip address instead.
   var url = 'http://192.168.1.32:8000';
   //found in docker/.env
   //we keep the same for now. When we move to production we will change the keys.
@@ -30,6 +33,7 @@ void main() async {
   testInsertUser();
   debugPrint("run completed");
 }
+
 //the widget MyApp is hosting is decoupled for easier testing.
 //the default home value in line 20 is WelcomeScreen but feel free to sub
 //with other widgets for testing UI.

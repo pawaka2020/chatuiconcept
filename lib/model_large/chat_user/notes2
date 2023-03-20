@@ -1,0 +1,10 @@
+write 8000 users
+an then?
+
+make sure the batch writing has diagnostic tools included inside for speed monitoring
+test writing with batch vs writing with normal up to 8000 names
+
+use case for reading users: ?????
+reading just uses index.
+
+but just in case, just create a read function with

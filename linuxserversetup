@@ -1,0 +1,63 @@
+Install Docker:
+
+sudo apt-get update
+
+sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt-get update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+-------------
+
+To test with a basic 'hello world' container:
+
+mkdir helloworld && cd helloworld //create 'helloworld' folder and enter it.
+nano Dockerfile //create file named 'Dockerfile' using Nano (or whatever else editing methods you prefer)
+
+Then inside the file 'Dockerfile' type this:
+FROM ubuntu:latest
+CMD echo "Hello, world!"
+Close Dockerfile and save.
+
+sudo docker build -t hello-world . //create an image from Dockerfile called hello-world.
+sudo docker run --name container1 hello-world //run image hello-world as container1
+sudo docker run --name container2 hello-world //run image hello-world as container2
+//You can also run with -d before --name for detached mode, but you need to type
+//sudo docker logs <containername> to view output.
+
+sudo docker stop container1 //stops container1
+sudo docker stop container2 //stops container2
+sudo docker rm container1 //removes container1
+sudo docker rm container2 //removes container2
+
+sudo docker rmi hello-world //removes image hello-world
+
+--
+setup supabase cli:
+
+Install npm first then install node. Never attempt to install node before npm because problems by
+server to reccognize
+
+then insattll supabase as usual
+
+
+
+//it wont work, so do the following:
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+nvm install 18
+ gt brew
+
+node_modules/supabase/bin/./supabase --version
+-----
+MISC:
+type 'df -h' to check memory space remaining. Some apt installs can take a serious amount of space ie nodejs npm
+view the server's ip with this:
+ip addr show eth0 | awk '/inet / {print $2}' | cut -f1 -d'/'
+172.31.17.245

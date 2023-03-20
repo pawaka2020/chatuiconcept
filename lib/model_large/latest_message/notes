@@ -1,0 +1,52 @@
+CREATE TABLE latest_messages (
+  uid uuid PRIMARY KEY,
+  latest_message TEXT,
+  latest_message_date TIMESTAMPTZ
+);
+
+
+Then, you can update this table each time a new message is sent. For example:
+-- Update the latest message for the sender
+INSERT INTO latest_messages (uid, latest_message, latest_message_date)
+VALUES ('sender_uid', 'message', 'date_sent')
+ON CONFLICT (uid) DO UPDATE
+SET latest_message = excluded.latest_message,
+    latest_message_date = excluded.latest_message_date
+WHERE excluded.latest_message_date > latest_messages.latest_message_date;
+
+-- Update the latest message for the recipient
+INSERT INTO latest_messages (uid, latest_message, latest_message_date)
+VALUES ('recipient_uid', 'message', 'date_sent')
+ON CONFLICT (uid) DO UPDATE
+SET latest_message = excluded.latest_message,
+    latest_message_date = excluded.latest_message_date
+WHERE excluded.latest_message_date > latest_messages.latest_message_date;
+
+SELECT chat_users_large.name, latest_messages.latest_message, latest_messages.latest_message_date
+FROM chat_users_large
+JOIN latest_messages ON chat_users_large.uid = latest_messages.uid
+WHERE latest_messages.latest_message_date > '2022-01-01'
+ORDER BY latest_messages.latest_message_date DESC;
+
+
+
+
+
+----
+CREATE TABLE chat_last (
+  uid uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  sender_uid uuid NOT NULL REFERENCES chat_users_large(uid),
+  recipient_uid uuid NOT NULL REFERENCES chat_users_large(uid),
+  message TEXT,
+  file_url TEXT,
+  date_sent TIMESTAMPTZ,
+  CONSTRAINT recipient_message UNIQUE (recipient_uid, date_sent DESC)
+);
+
+CREATE INDEX recipient_uid_idx ON chat_last (recipient_uid);
+
+SELECT *
+FROM chat_last
+WHERE recipient_uid = 'abcde'
+ORDER BY date_sent DESC
+LIMIT 1;

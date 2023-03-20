@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:supabase/supabase.dart';
-import '../singletons.dart';
-import '../model_large/user.dart';
+import '../../singletons.dart';
+import '../diagnose/db_diagnose.dart';
+import 'chat_user.dart';
 import 'package:uuid/uuid.dart';
 
 /// try to make the class just use the singleton supabaseClient, but for now this should be sufficient.
@@ -38,70 +39,70 @@ import 'package:uuid/uuid.dart';
 //   }
 // }
 
-class ChatUserRepository {
-  final List<ChatUser> _userQueue = [];
+// class ChatUserRepository {
+//   final List<ChatUser> _userQueue = [];
+//
+//   Timer? _timer;
+//
+//   Future<void> queueUser(ChatUser user) async {
+//     _userQueue.add(user);
+//
+//     _timer ??= Timer.periodic(const Duration(seconds: 5), (_) {
+//         _writeUsers();
+//       });
+//   }
+//
+//   Future<void> _writeUsers() async {
+//     if (_userQueue.isEmpty) {
+//       _timer?.cancel();
+//       _timer = null;
+//       return;
+//     }
+//
+//     const batchSize = 1000;
+//     final batches = <List<ChatUser>>[];
+//     //final batches = List<List<ChatUser>>;
+//     while (_userQueue.isNotEmpty) {
+//       final batch = _userQueue.take(batchSize).toList();
+//       batches.add(batch);
+//       _userQueue.removeRange(0, batch.length);
+//     }
+//
+//     for (final batch in batches) {
+//       final response = await supabaseClient.rpc('insert_users', params: {
+//         'users': batch.map((user) => user.toMap()).toList(),
+//       });
+//       if (response.error != null) {
+//         throw Exception(response.error!.message);
+//       }
+//     }
+//   }
+//
+//   void testInsertUser() async {
+//     final chatUserRepository = ChatUserRepository();
+//
+//     final user = ChatUser(
+//       uid: '',
+//       name: 'John Doe',
+//       email: 'johndoe@example.com',
+//       signature: '',
+//       avatarUrl: '',
+//       dateCreated: DateTime.now(),
+//       contacts: [],
+//     );
+//
+//     await chatUserRepository.queueUser(user);
+//   }
+// }
 
-  Timer? _timer;
-
-  Future<void> queueUser(ChatUser user) async {
-    _userQueue.add(user);
-
-    _timer ??= Timer.periodic(const Duration(seconds: 5), (_) {
-        _writeUsers();
-      });
-  }
-
-  Future<void> _writeUsers() async {
-    if (_userQueue.isEmpty) {
-      _timer?.cancel();
-      _timer = null;
-      return;
-    }
-
-    const batchSize = 1000;
-    final batches = <List<ChatUser>>[];
-    //final batches = List<List<ChatUser>>;
-    while (_userQueue.isNotEmpty) {
-      final batch = _userQueue.take(batchSize).toList();
-      batches.add(batch);
-      _userQueue.removeRange(0, batch.length);
-    }
-
-    for (final batch in batches) {
-      final response = await supabaseClient.rpc('insert_users', params: {
-        'users': batch.map((user) => user.toMap()).toList(),
-      });
-      if (response.error != null) {
-        throw Exception(response.error!.message);
-      }
-    }
-  }
-
-  void testInsertUser() async {
-    final chatUserRepository = ChatUserRepository();
-
-    final user = ChatUser(
-      uid: '',
-      name: 'John Doe',
-      email: 'johndoe@example.com',
-      signature: '',
-      avatarUrl: '',
-      dateCreated: DateTime.now(),
-      contacts: [],
-    );
-
-    await chatUserRepository.queueUser(user);
-  }
-}
-
-class ChatUserRepositoryLarge {
+class ChatUserRepo {
   final List<ChatUser> _userQueue = [];
   final int batchSize;
   final Duration batchInterval;
 
   Timer? _timer;
 
-  ChatUserRepositoryLarge({
+  ChatUserRepo({
     this.batchSize = 1000,
     this.batchInterval = const Duration(seconds: 5),
   });
@@ -133,11 +134,16 @@ class ChatUserRepositoryLarge {
         'users': batch.map((user) => user.toMap()).toList(),
       });
     }
+    // DbDiagnose().printExecutionTime(() async {
+    //   await Future.delayed(const Duration(seconds: 1)); // Replace this with your database call
+    // }, 'queueUser');
   }
 }
 
 void testInsertUser() async {
-  final chatUserRepository = ChatUserRepositoryLarge();
+  final chatUserRepo= ChatUserRepo();
+
+  //final repoFast = ChatUserRepo(batchSize:40,batchInterval:const Duration(seconds: 3));
 
   final user = ChatUser(
     uid: const Uuid().v4(),
@@ -150,7 +156,9 @@ void testInsertUser() async {
     contacts: [],
   );
 
-  await chatUserRepository.queueUser(user);
+  await chatUserRepo.queueUser(user);
+ // await ChatUserService().toSupabase(user);
+
   debugPrint("end of testinsertuser");
 }
 
