@@ -61,3 +61,18 @@ type 'df -h' to check memory space remaining. Some apt installs can take a serio
 view the server's ip with this:
 ip addr show eth0 | awk '/inet / {print $2}' | cut -f1 -d'/'
 172.31.17.245
+
+
+cd node_modules/supabase/bin/
+
+
+--------------------------------------
+Running CLI
+Run the docker container for the Supabase self-hosted database first.
+Go to ........///TODO: will fill later
+Then type 'sudo docker compose up'
+Open a parallel terminal to the server from Termius.
+From the parallel terminal type 'sudo docker ps' to check that Supabase container is indeed running.
+Use the parallel terminal for your work from now on. Do not close the original terminal.
+
+go to Supabase CLI's directory from root by typing 'node_modules/supabase/bin'
