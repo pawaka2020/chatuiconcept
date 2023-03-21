@@ -9,7 +9,6 @@ import 'model/country.dart';
 import 'model_large/chat_user/chat_user_repo.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
-
 //ui works on phones but needs adjusting to work on PC browsers.
 void main() async {
   //found in http://localhost:8000 of selfhost Supabase
@@ -29,12 +28,9 @@ void main() async {
   );
   /// running the app itself
   runApp(const MyApp());
-
 }
 
-//the widget MyApp is hosting is decoupled for easier testing.
-//the default home value in line 20 is WelcomeScreen but feel free to sub
-//with other widgets for testing UI.
+///the Chatroom main class, directing to WelcomeScreen
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
@@ -47,7 +43,7 @@ class MyApp extends StatelessWidget {
   );
 }
 
-//placeholder class for testing only
+/// placeholder class for testing only
 class HelloWorld extends StatelessWidget {
   const HelloWorld({Key? key}) : super(key: key);
   @override

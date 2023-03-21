@@ -23,6 +23,7 @@ class ChatBody extends StatelessWidget {
   }
 }
 
+/// The green bar on top.
 Container topBody(BuildContext context){
   FillOutlineButton activeButton = FillOutlineButton(
       context: context,
@@ -59,6 +60,7 @@ Container topBody(BuildContext context){
 //   ),
 // );
 
+/// The listview containing last messages sent to the user
 Expanded bottomBody(List chatlist, BuildContext context) => Expanded(child:
 ListView.builder(
     itemCount: chatlist.length,

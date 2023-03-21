@@ -16,7 +16,7 @@ Column nameAndTime = Column(
     )
   ],
 );
-// displays user image, name, time active, phone and video call buttons
+/// displays user image, name, time active, phone and video call buttons
 AppBar messageAppBar() =>AppBar(
   automaticallyImplyLeading: false,
   //items arrangd vertically

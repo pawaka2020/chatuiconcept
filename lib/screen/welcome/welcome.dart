@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../signing/signing.dart';
 //import 'package:chat/screens/signinOrSignUp/signin_or_signup_screen.dart';
 
+/// This is just an intro page with some art, text, and a 'skip' button.
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
   //background image

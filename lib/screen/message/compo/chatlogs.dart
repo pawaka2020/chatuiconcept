@@ -26,6 +26,7 @@ import 'messagebubble.dart';
 //   ));
 // }
 
+/// UI for conversation
 Expanded chatLogs() {
   return Expanded(child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
