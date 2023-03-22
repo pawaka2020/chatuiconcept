@@ -3,6 +3,7 @@ import 'package:chatuiconcept/screen/welcome/welcome.dart';
 import 'package:chatuiconcept/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:chatuiconcept/singletons.dart';
 
 import 'model/chat_user.dart';
 import 'model/country.dart';
@@ -21,8 +22,14 @@ void main() async {
   //for now the UI can display backend from my cloud Supabase, not yet from my selfhost Supabase.
   var url2 = 'https://awvkifeyofjyyenvkruh.supabase.co';
   var anonkey2 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF3dmtpZmV5b2ZqeXllbnZrcnVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzU2NTk5ODgsImV4cCI6MTk5MTIzNTk4OH0.ZtmD5XGYvAMH1PyXDeIHJ2c-OUVJVThmWMnFxoXQbSA';
+
   WidgetsFlutterBinding.ensureInitialized();
-  await Supabase.initialize(
+  // await Supabase.initialize(
+  //   url: url2,
+  //   anonKey: anonkey2,
+  // );
+  //
+  supabaseInit = await Supabase.initialize(
     url: url2,
     anonKey: anonkey2,
   );
@@ -51,5 +58,21 @@ class HelloWorld extends StatelessWidget {
         body: Center(
           child: Text("Hello World!")
         )
-      );
+  );
 }
+
+// import 'package:flutter/material.dart';
+// import 'supabase_singleton.dart';
+//
+// void main() {
+//   runApp(MyApp());
+// }
+//
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     final supabase = SupabaseSingleton().supabaseClient;
+//     // Use the supabase instance here
+//     ...
+//   }
+// }

@@ -60,7 +60,7 @@ class ChatUser {
     );
   }
 
-  //name in Supabase database. This is not to be added into Supabase.
+  //name of Supabase database.
   String tableName = 'chat_users';
 }
 
@@ -87,33 +87,8 @@ class ChatUserService extends Services
     }
     return result;
   }
-  // @override
-  // Future<List<ChatUser>> getSupabase() async {
-  //   final supabase = Supabase.instance.client;
-  //   final response = await supabase.from('chat_users').select().execute();
-  //   final List<dynamic> jsonArray = response.data;
-  //   final List<ChatUser> result = jsonArray.map((e) {
-  //     final passwordHash = utf8.decode(
-  //       pgpSymDecrypt(e['passwordHash'], 'Apple_Sauce'),
-  //     );
-  //     return ChatUser.fromJson(e.copyWith(passwordHash: passwordHash));
-  //   }).toList();
-  //   return result;
-  // }
-  // @override
-  // Future<List<ChatUser>> getSupabase() async {
-  //   final supabase = Supabase.instance.client;
-  //   final response = await supabase.from('chat_users').select();
-  //   List<dynamic> jsonArray = jsonDecode(jsonEncode(response));
-  //   List<ChatUser> result = jsonArray.map((e) =>
-  //       ChatUser.fromJson({
-  //         'id': e['id'],
-  //         'name': e['name'],
-  //         'status': e['status'],
-  //         'imageData': e['imageData'],
-  //         'signature': e['signature'],
-  //         'lastSeen': e['lastSeen'],
-  //       })).toList();
-  //   return result;
-  // }
+
+
+
+
 }

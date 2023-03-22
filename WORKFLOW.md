@@ -2,33 +2,32 @@ TBF: To be filled later. Have its workflow defined later.
 TODO: To be coded later.
 
 FRONTEND:
-
-0: main
+0. main
 0.1 Initialize Supabase connection with the correct URL and anonkey.
 0.2 There are two pairs of URL and anonkey: one for self-host Supabase for release and
 the other for cloud Supabase for early dev.
 0.3 Once Supabase has been initialized, proceed with MyApp
 
-1: MyApp.
+1. MyApp.
 1.1 Set the template for the light theme and dark theme of this app.
 1.2 User is directed to WelcomeScreen from MyApp. 
 
-2: WelcomeScreen
+2. WelcomeScreen
 2.1 This is just a welcome page with some art, text and a 'skip' button that leads to SigningScreen.
 2.2 (TODO) Supabase Auth allows already logged in users to skip this screen.
 
-3: SigningScreen
+3. SigningScreen
 3.1 Shows app logo art, 'Sign in' and 'Sign up' buttons.
 3.2 (TODO) Supabase Auth again allows already logged in users to skip this screen.
 3.3 (TODO) 'Sign up' leads to SignUpScreen, but for now just HelloWorld.
 3.4 (TODO) 'Sign in' leads to SignInScreen built with Supabase Auth.
 3.5 For now 'Sign in' leads to ChatScreen.
 
-4: SignUpScreen (TODO)
+4. SignUpScreen (TODO)
 
-5: SignInScreen (TODO)
+5. SignInScreen (TODO)
 
-6: ChatScreen
+6. ChatScreen
 6.1 Shows a main UI (ChatBody) of last messages sent to the user.
 6.2 (TODO) Floating action button to enable user to initiate a new conversation.
 6.3 (TODO) Phone icon to enable user to call friends. Only friends, not un-added contacts.
@@ -39,7 +38,7 @@ the other for cloud Supabase for early dev.
 I will create a true table derived from 'messages' to replace 'chat'
 6.8 Use clicks any item on list of bottomBody to go to MessageScreen
 
-7: MessageScreen
+7. MessageScreen
 7.1 Contains green bar on top (messageAppBar) and conversation UI (messageBody) 
 7.2 messageAppBar displays user image, name, time active, 
 7.3 (TODO) logic for phone call button on messageAppBar
@@ -49,8 +48,7 @@ I will create a true table derived from 'messages' to replace 'chat'
 7.7 (TODO) enable adding to 'messages' table after tapping chatInputField
 
 BACKEND:
-
-1:Friend Request:
+1. Friend Request:
 1.1 A user can send a friend request (FR) to another.
 1.2 An FR can be pending (default), accepted or rejected.
 1.3 All pending FRs will be automatically deleted from Supabase's 'friend requests' table within 10 days.
@@ -61,29 +59,32 @@ BACKEND:
 1.8 An SQL function running on a cron job will handle auto deletion of pending FRs.
 1.9 Signals for deleting accepted and rejected FRs will come from Flutter app.
 
-2:(TBF) ChatUser
+2. (TBF) ChatUser
 
-3:(TBF) ChatMessage
+3. (TBF) ChatMessage
 
-4:(TBF) CHAT
+4. (TBF) CHAT
 
 DATABASE:
-1:Supabase:
+1. Supabase:
 1.1 https://supabase.com/
 1.2 Provides almost the same functionality as Firebase, but also offers 100% free self-host option.
 1.3 Cloud database is used first instead of self-host during development.
 1.4 PostgreSQL-based with ability to also write SQL functions inside and execute cron jobs.
 1.5 Either we use Supabase Storage to keep files, or we use XML
+1.6 We may use other db types like MongoDB for release version.
 
-2:XML
+2. XML
 2.1: Offline persistence.
 2.2: Files from Supabase saved here as well.
 
 REPOSITORY (TBF):
 
 ETC:
-
-1.DB Architecture:
+1. DB Architecture:
 1.1 for now singular but after launch move to master-slave.
 
-2.App architecture(TBF):
+2. App architecture(TBF):
+
+3. (TODO) UI adjustment on web version
+3.1 ui works on phones but needs adjusting to work on PC browsers.

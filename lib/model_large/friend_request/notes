@@ -10,6 +10,7 @@ CREATE TABLE friend_requests (
 
 
 todo:
+0. create a number of users first.
 1- write to db, but check first that the same request had been sent previously.
 2- fun in supabase that auto deletes row after 10 days had elapsed.
 3- fun in flutter app that changes the 'status' in a row to either accept or reject.
