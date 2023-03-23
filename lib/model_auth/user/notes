@@ -1,0 +1,17 @@
+CREATE TABLE users (
+  id uuid PRIMARY KEY,
+  name text,
+  email text UNIQUE,
+  created_at timestamp with time zone
+);
+
+CREATE TABLE chat_users_auth (
+uid uuid PRIMARY KEY,
+username TEXT,
+signature TEXT,
+avatar_url TEXT,
+date_created TIMESTAMPTZ,
+contacts TEXT[] DEFAULT '{}'
+);
+CREATE INDEX name_idx_cua ON chat_users_auth (name);
+

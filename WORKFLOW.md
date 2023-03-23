@@ -59,9 +59,9 @@ BACKEND:
 1.8 An SQL function running on a cron job will handle auto deletion of pending FRs.
 1.9 Signals for deleting accepted and rejected FRs will come from Flutter app.
 
-2. (TBF) ChatUser
+2. (TBF) ChatUserAuth
 
-3. (TBF) ChatMessage
+3. (TBF) ChatMessageAuth
 
 4. (TBF) CHAT
 

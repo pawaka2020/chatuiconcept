@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:supabase/supabase.dart';
 import '../../singletons.dart';
@@ -99,7 +100,6 @@ class ChatUserRepo {
   final List<ChatUser> _userQueue = [];
   final int batchSize;
   final Duration batchInterval;
-
   Timer? _timer;
 
   ChatUserRepo({
@@ -137,6 +137,26 @@ class ChatUserRepo {
     // DbDiagnose().printExecutionTime(() async {
     //   await Future.delayed(const Duration(seconds: 1)); // Replace this with your database call
     // }, 'queueUser');
+  }
+
+  Future<void> toSupabase(ChatUser user) async {
+    await supabaseClient.from('chat_users_large').insert(user.toMap());
+    debugPrint("ChatUser object inserted");
+  }
+
+  Future<List> fromSupabase(bool test) async {
+    final response = await supabaseClient.from('chat_users_large').select();
+    List<dynamic> jsonArray = jsonDecode(jsonEncode(response));
+    List<ChatUser> result = jsonArray.map((e) =>
+        ChatUser.fromMap(e)).toList();
+    if (test == true) {
+      for (var chat in result) {
+        debugPrint(chat.name);
+        debugPrint(chat.signature);
+        debugPrint(chat.avatarUrl);
+      }
+    }
+    return result;
   }
 }
 

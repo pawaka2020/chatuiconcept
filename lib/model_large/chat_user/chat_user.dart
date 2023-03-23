@@ -68,14 +68,6 @@ class ChatUserService {
   Future<void> toSupabase(ChatUser user) async {
     await supabaseClient.from('chat_users_large').insert(user.toMap());
     debugPrint("ChatUser object inserted");
-    // final executionTime = printExecutionTime(() async {
-    //   await Future.delayed(const Duration(seconds: 1)); // Replace this with your database call
-    // }, 'toSupabase');
-    // debugPrint('Execution time: $executionTime ms');
-    DbDiagnose().printExecutionTime(() async {
-      await Future.delayed(const Duration(seconds: 1)); // Replace this with your database call
-    }, 'fromSupabase');
-
   }
 
   Future<void> batchInsertUsers(List<ChatUser> users) async {
