@@ -28,20 +28,20 @@ class ChatUser {
   final List<String> contacts;
 
   /// Constructor.
-  ChatUser({
-    required this.uid,
-    required this.username,
-    required this.signature,
-    required this.avatarUrl,
-    required this.dateCreated,
-    required this.contacts
-  });
+  ChatUser(
+    this.uid,
+    this.username,
+    this.signature,
+    this.avatarUrl,
+    this.dateCreated,
+    this.contacts
+  );
 
   /// Converts a ChatUser2 object to a Map.
   Map<String, dynamic> toMap() {
     return {
       'uid': uid ?? '',
-      'name': username,
+      'username': username,
       'signature': signature,
       'avatar_url': avatarUrl,
       'date_created': dateCreated.toIso8601String(),
@@ -51,12 +51,11 @@ class ChatUser {
 
   static ChatUser fromMap(Map<String, dynamic> map) {
     return ChatUser(
-      uid: map['uid'] as String,
-      username: map['name'] as String,
-      signature: map['signature'] as String ?? '',
-      avatarUrl: map['avatarUrl'] as String ?? '',
-      dateCreated: DateTime.parse(map['dateCreated'] as String),
-      contacts: List<String>.from(map['contacts'] ?? []),
+      map['uid'] as String,
+      map['name'] as String,
+      map['signature'] as String ?? '', map['avatarUrl'] as String ?? '',
+      DateTime.parse(map['dateCreated'] as String),
+      List<String>.from(map['contacts'] ?? []),
     );
   }
 }

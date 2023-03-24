@@ -17,6 +17,11 @@ class ChatUserRepo {
     this.batchInterval = const Duration(seconds: 5),
   });
 
+  // ChatUser create()
+  // {
+  //
+  // }
+
   Future<void> queueUser(ChatUser user) async {
     _userQueue.add(user);
 
@@ -48,7 +53,7 @@ class ChatUserRepo {
 
   Future<void> toSupabase(ChatUser user) async {
     await supabaseClient.from(tableName).insert(user.toMap());
-    debugPrint("ChatUser object inserted");
+    debugPrint("ChatUser object inserted to $tableName for ${user.username}");
   }
 
   Future<List> fromSupabase(bool test) async {

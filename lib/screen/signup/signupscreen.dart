@@ -18,16 +18,18 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   String _username = '';
-  String _phone = '';
   String _email = '';
   String _password = '';
+  //String _phone = '';
+  //String _photo = '';
 
-  void _submitForm() {
+  Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      // TODO: Implement Supabase Auth sign up here
-      //SupabaseAuthSignup()
-      ChatUserAuth().signUp(_username, _phone, _email, _password);
+      debugPrint("key pressed");
+      debugPrint('_username: $_username, _email: $_email, _password: $_password');
+
+      ChatUserAuth().signUp(_username, _email, _password);
     }
   }
 
@@ -35,32 +37,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final session = await supabaseClient.auth.currentSession;
     return session?.accessToken ?? '';
   }
-  
-
-  // Future<void> _supabaseAuthSignUp(String email, String password) async{
-  //   final response = await supabaseClient.auth.signUp(password: password, email:email);
-  //   final response2 = await supabaseClient.auth.signUp(password: password)
-  //   //await supabaseClient.auth.
-  //   final user = response.user.;
-  //
-  //   //supabaseClient.auth.signUp
-  //
-  //   //supabaseClient.
-  // }
-
-  // Future<Message> authGetMessage(String token) async {
-  //   Message message;
-  //   final url = Uri.parse('https://<your-supabase-url>/rest/v1/messages');
-  //   final headers = {'Authorization': 'Bearer $token'};
-  //   final response = await http.get(url, headers: headers);
-  //
-  //   if (response.statusCode == 200) {
-  //     message = json.decode(response.body);
-  //   } else {
-  //     throw Exception('Failed to load data');
-  //   }
-  //   return message;
-  // }
 
   Widget _buildEmailField() {
     return TextFormField(
@@ -89,19 +65,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
         return null;
       },
       onSaved: (value) {
-        _phone = value!.trim();
+        //_phone = value!.trim();
       },
     );
   }
 
-  ///TODO: Implement an actual password complexity logic instead of just
-  ///value.length < 6
   Widget _buildPasswordField() {
     return TextFormField(
       obscureText: true,
       decoration: const InputDecoration(labelText: 'Password'),
       validator: (value) {
-        if (value == null) {
+        if (value == null || value.length < 6) {
           return 'Password must be at least 6 characters long';
         }
         return null;
@@ -112,7 +86,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Widget _buildUsernameField(){
+  Widget _buildUsernameField() {
     return TextFormField(
       decoration: const InputDecoration(labelText: 'User name'),
       validator: (value) {
@@ -139,23 +113,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
       appBar: AppBar(
         title: const Text('Sign Up'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              _buildUsernameField(),
-              _buildEmailField(),
-              _buildPhoneField(),
-              _buildPasswordField(),
-              //_buildPhotoField()
-              const SizedBox(height: 16.0),
-              _signUpButton(context)
-            ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                _buildUsernameField(), //TextFormField
+                _buildEmailField(), //TextFormField
+                //_buildPhoneField(), //TextFormField
+                _buildPasswordField(), //TextFormField
+                //_buildPhotoField()
+                const SizedBox(height: 16.0),
+                _signUpButton(context)
+              ],
+            ),
           ),
         ),
-      ),
+      )
     );
   }
 }
@@ -163,4 +139,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
 
 
-
+// Future<Message> authGetMessage(String token) async {
+//   Message message;
+//   final url = Uri.parse('https://<your-supabase-url>/rest/v1/messages');
+//   final headers = {'Authorization': 'Bearer $token'};
+//   final response = await http.get(url, headers: headers);
+//
+//   if (response.statusCode == 200) {
+//     message = json.decode(response.body);
+//   } else {
+//     throw Exception('Failed to load data');
+//   }
+//   return message;
+// }
