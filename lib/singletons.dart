@@ -8,3 +8,4 @@ final supabaseClient = Supabase.instance.client;
 late Supabase supabaseInit;
 StreamSubscription<AuthChangeEvent>? _authSubscription;
 StreamSubscription<AuthChangeEvent>? abc;
+

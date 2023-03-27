@@ -9,6 +9,7 @@ import '../../model_auth/user/chat_user_auth.dart';
 import '../../singletons.dart';
 import '../../uifunctions.dart';
 import '../chat/chatscreen.dart';
+import '../verify/verifyscreen.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -30,6 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       debugPrint('_username: $_username, _email: $_email, _password: $_password');
 
       ChatUserAuth().signUp(_username, _email, _password);
+      navigateTo(context, VerifyScreen());
     }
   }
 
