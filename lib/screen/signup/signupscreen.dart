@@ -12,8 +12,10 @@ import '../chat/chatscreen.dart';
 import '../verify/verifyscreen.dart';
 
 class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
+
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
@@ -27,16 +29,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      debugPrint("key pressed");
       debugPrint('_username: $_username, _email: $_email, _password: $_password');
-
-      ChatUserAuth().signUp(_username, _email, _password);
-      navigateTo(context, VerifyScreen());
+      await ChatUserAuth().signUp(_username, _email, _password);
+      navigateTo(context, const ChatScreen());
     }
   }
 
   Future<String> getAccessToken() async {
-    final session = await supabaseClient.auth.currentSession;
+    final session = supabaseClient.auth.currentSession;
     return session?.accessToken ?? '';
   }
 

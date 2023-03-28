@@ -34,7 +34,7 @@ class ChatUserAuth
     else
     {
       debugPrint("signup completed for $usernameAuth");
-      ChatUser user = ChatUser(
+      ChatUser currentUser = ChatUser(
           response.user!.id,
           response.user?.userMetadata!['username'],
           '',
@@ -42,7 +42,7 @@ class ChatUserAuth
           DateTime.now(),
           []
       );
-      ChatUserRepo().toSupabase(user);
+      ChatUserRepo().toSupabase(currentUser);
     }
   }
 

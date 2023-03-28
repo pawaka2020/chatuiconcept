@@ -29,7 +29,7 @@ class _ChatScreenState extends State<ChatScreen> {
           _index = value;
         });
       },
-      items: [
+      items: const [
         BottomNavigationBarItem(icon: Icon(Icons.messenger), label: "Chats"),
         BottomNavigationBarItem(icon: Icon(Icons.people), label: "People"),
         BottomNavigationBarItem(icon: Icon(Icons.call), label: "Calls"),

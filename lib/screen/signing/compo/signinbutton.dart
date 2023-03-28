@@ -1,3 +1,4 @@
+import 'package:chatuiconcept/screen/signin/signinscreen.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../commoncompo/primarybutton.dart';
 import '../../../main.dart';
@@ -7,6 +8,6 @@ import '../../chat/chatscreen.dart';
 //navigateTo is supposed to be pointed to ChatScreen but HelloWorld() placeholder for now
 PrimaryButton signinButton(BuildContext context) => PrimaryButton(
   context: context,
-  pressCallback:()=> navigateTo(context, const ChatScreen()),
+  pressCallback:()=> navigateTo(context, const SignInScreen()),
   buttonText: "Sign In",
 );

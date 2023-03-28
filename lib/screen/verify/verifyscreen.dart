@@ -1,7 +1,12 @@
 import 'dart:async';
+import '../../model_auth/user/chat_user.dart';
+import '../../model_auth/user/chat_user_repo.dart';
 import '../../singletons.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../../uifunctions.dart';
+import '../chat/chatscreen.dart';
 
 class VerifyScreen extends StatefulWidget {
   VerifyScreen({super.key});
@@ -18,20 +23,78 @@ class _VerifyScreenState extends State<VerifyScreen> {
   void _listenToAuthStateChange(){
     final auth = supabaseClient.auth;
     auth.onAuthStateChange.listen((event) {
-      if(auth.currentUser?.emailConfirmedAt != null){
-        String name = auth.currentUser?.userMetadata!["username"];
-        debugPrint("email for $name verified");
+      //if(auth.currentUser?.emailConfirmedAt != null){
+      // if (auth.onAuthStateChange)
+      //if(auth.currentUser?.lastSignInAt!= null){
+        // String name = auth.currentUser?.userMetadata!["username"];
+        // debugPrint("email for $name verified");
+        // setState(() {
+        //   _isEmailVerified = true;
+        // });
+        // ChatUser user = ChatUser(
+        //     auth.currentUser!.id,
+        //     auth.currentUser?.userMetadata!['username'],
+        //     '',
+        //     '',
+        //     DateTime.now(),
+        //     []
+        // );
+        // ChatUserRepo().toSupabase(user);
+      //}
+      String name = auth.currentUser?.userMetadata!["username"];
+      debugPrint("email for $name verified");
+      setState(() {
         _isEmailVerified = true;
-      }
+      });
+      ChatUser user = ChatUser(
+          auth.currentUser!.id,
+          auth.currentUser?.userMetadata!['username'],
+          '',
+          '',
+          DateTime.now(),
+          []
+      );
+      ChatUserRepo().toSupabase(user);
     });
+  }
+
+  void checkEmailVerified() async {
+    var currentUser = supabaseClient.auth.currentUser;
+    bool abc = true;
+    while (abc) {
+      currentUser = supabaseClient.auth.currentUser;
+      debugPrint("identity of $currentUser?");
+      //final asd = supabaseClient.auth.
+      //debugPrint("value = ");
+      await Future.delayed(const Duration(seconds: 2)); // wait for 10 seconds before checking again
+    }
+    // email has been verified, do something here
+    String name = currentUser?.userMetadata!["username"];
+    debugPrint("email for $name verified");
+    setState(() {
+      _isEmailVerified = true;
+    });
+    ChatUser user = ChatUser(
+        currentUser!.id,
+        currentUser.userMetadata!['username'],
+        '',
+        '',
+        DateTime.now(),
+        []
+    );
+    ChatUserRepo().toSupabase(user);
   }
 
   @override
   void initState() {
     super.initState();
-    _listenToAuthStateChange();
+    //_listenToAuthStateChange();
+    checkEmailVerified();
   }
-  void _onButtonPressed(){}
+  void _onButtonPressed(){
+
+    navigateTo(context, const ChatScreen());
+  }
 
   Widget _buildVerifyButton() {
     return ElevatedButton(

@@ -88,3 +88,8 @@ ETC:
 
 3. (TODO) UI adjustment on web version
 3.1 ui works on phones but needs adjusting to work on PC browsers.
+
+
+
+---
+change redirect url https://app.supabase.com/project/awvkifeyofjyyenvkruh/auth/url-configuration

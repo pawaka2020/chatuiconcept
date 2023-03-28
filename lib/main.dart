@@ -32,7 +32,9 @@ void main() async {
   supabaseInit = await Supabase.initialize(
     url: url2,
     anonKey: anonkey2,
+
   );
+
   /// running the app itself
   runApp(const MyApp());
 }
