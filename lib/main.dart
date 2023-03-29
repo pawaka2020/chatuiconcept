@@ -24,17 +24,10 @@ void main() async {
   var anonkey2 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF3dmtpZmV5b2ZqeXllbnZrcnVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzU2NTk5ODgsImV4cCI6MTk5MTIzNTk4OH0.ZtmD5XGYvAMH1PyXDeIHJ2c-OUVJVThmWMnFxoXQbSA';
 
   WidgetsFlutterBinding.ensureInitialized();
-  // await Supabase.initialize(
-  //   url: url2,
-  //   anonKey: anonkey2,
-  // );
-  //
   supabaseInit = await Supabase.initialize(
     url: url2,
     anonKey: anonkey2,
-
   );
-
   /// running the app itself
   runApp(const MyApp());
 }
@@ -62,19 +55,3 @@ class HelloWorld extends StatelessWidget {
         )
   );
 }
-
-// import 'package:flutter/material.dart';
-// import 'supabase_singleton.dart';
-//
-// void main() {
-//   runApp(MyApp());
-// }
-//
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     final supabase = SupabaseSingleton().supabaseClient;
-//     // Use the supabase instance here
-//     ...
-//   }
-// }

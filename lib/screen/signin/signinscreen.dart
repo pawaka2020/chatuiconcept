@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../commoncompo/primarybutton.dart';
 import '../../model_auth/user/chat_user.dart';
+import '../../model_auth/user/chat_user_auth.dart';
 import '../../singletons.dart';
 import '../../uifunctions.dart';
 import '../chat/chatscreen.dart';
@@ -18,6 +19,46 @@ class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
   String _email = '';
   String _password = '';
+
+  Future<void> _signIn2() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      debugPrint('_email: $_email, _password: $_password');
+      try {
+        final response = await supabaseClient.auth.signInWithPassword(
+          email: _email, password: _password,
+        );
+        if (response.user?.id != null){
+          currentUser = ChatUser(
+              response.user!.id,
+              response.user?.userMetadata!['username'],
+              '',
+              '',
+              DateTime.now(),
+              []
+          );
+          navigateTo(context, const ChatScreen());
+        }
+      } on AuthException catch (e) {
+        if (e.statusCode != null) {
+          // Alert user that their email or password is incorrect
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Wrong email or password. Please try again.'),
+            ),
+          );
+        }
+      }
+    }
+  }
+
+  Future<void> _signIn() async {
+    if (_formKey.currentState!.validate()){
+      _formKey.currentState!.save();
+      await ChatUserAuth().signIn(_email, _password, context);
+      navigateTo(context, const ChatScreen());
+    }
+  }
 
   Widget _buildEmailField() {
     return TextFormField(
@@ -51,33 +92,9 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  Future<void> signIn(String email, String password) async {
-
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      debugPrint('_email: $_email, _password: $_password');
-      final response = await supabaseClient.auth.signInWithPassword(
-        email: email,
-        password: password,
-      );
-      if (response.user?.id != null)
-      {
-        currentUser = ChatUser(
-            response.user!.id,
-            response.user?.userMetadata!['username'],
-            '',
-            '',
-            DateTime.now(),
-            []
-        );
-        navigateTo(context, const ChatScreen());
-      }
-    }
-
-  }
-  Widget _buildSignInButton(BuildContext context) => PrimaryButton(
+  Widget _buildSignInButton() => PrimaryButton(
     context: context,
-    pressCallback:()=> signIn(_email, _password),
+    pressCallback:()=> _signIn(),
     buttonText: "Sign In",
   );
 
@@ -93,26 +110,29 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sign In'),
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildEmailField(),
-              const SizedBox(height: 16.0),
-              _buildPasswordField(),
-              const SizedBox(height: 16.0),
-              _buildSignInButton(context),
-              const SizedBox(height: 16.0),
-              _buildForgotPasswordText(),
-            ],
-          ),
+        appBar: AppBar(
+          title: const Text('Sign Up'),
         ),
-      ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  _buildEmailField(), //TextFormField
+                  _buildPasswordField(), //TextFormField
+                  const SizedBox(height: 32.0),
+                  _buildSignInButton(),
+                  const SizedBox(height: 16.0),
+                  _buildForgotPasswordText()
+                ],
+              ),
+            ),
+          ),
+        )
     );
   }
 }
+
+

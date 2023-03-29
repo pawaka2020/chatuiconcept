@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import '../../../commoncompo/smallloadingicon.dart';
 import '../../../constants.dart';
 import '../../../model/chat.dart';
+import '../../../model_auth/user/chat_user_auth.dart';
 import '../../../uifunctions.dart';
 import '../../message/messagescreen.dart';
+import '../../welcome/welcome.dart';
 
 //for now I only call chatlist from this widget but I will improve the architecture
 class ChatBody extends StatelessWidget {
@@ -36,6 +38,25 @@ Container topBody(BuildContext context){
       pressCallback: (){},
       buttonText: "Recent Message",
   );
+
+  GestureDetector signOutText = GestureDetector(
+    onTap: () {
+      ChatUserAuth().signOut();
+      //go back to SigningScreen(), but if the user hits back he goes to WelcomeScreen()
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (BuildContext context) => const WelcomeScreen()),
+        ModalRoute.withName('/'),
+      );
+    },
+    child: const Text(
+      'Sign out',
+      style: TextStyle(
+        color: Colors.white,
+      ),
+    ),
+  );
+
   return Container(
     padding: const EdgeInsets.fromLTRB(
         defaultPadding, 0, defaultPadding, defaultPadding),
@@ -43,7 +64,9 @@ Container topBody(BuildContext context){
     child: Row(children:[
       recentButton,
       const SizedBox(width: defaultPadding),
-      activeButton
+      activeButton,
+      const SizedBox(width: 32.0),
+      signOutText,
     ])
   );
 }

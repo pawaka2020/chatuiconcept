@@ -1,10 +1,3 @@
-CREATE TABLE users (
-  id uuid PRIMARY KEY,
-  name text,
-  email text UNIQUE,
-  created_at timestamp with time zone
-);
-
 CREATE TABLE chat_users_auth (
 uid uuid PRIMARY KEY,
 username TEXT,
@@ -15,3 +8,17 @@ contacts TEXT[] DEFAULT '{}'
 );
 CREATE INDEX name_idx_cua ON chat_users_auth (name);
 
+CREATE OR REPLACE FUNCTION insert_users_auth_batch(users chat_users_auth[])
+  RETURNS void AS
+$BODY$
+BEGIN
+  -- Insert users
+  IF ARRAY_LENGTH(users, 1) > 0 THEN
+    INSERT INTO chat_users_auth
+    SELECT * FROM UNNEST(users);
+  END IF;
+END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE;
+
+SELECT cron.schedule('insert_users_batch_auth_job', '*/5 * * * * *', 'SELECT * FROM insert_users_auth_batch(ARRAY[]::chat_users_auth[])');

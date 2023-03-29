@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
+import '../../singletons.dart';
 import '../../uifunctions.dart';
 import 'compo/chatappbar.dart';
 import 'compo/chatbody.dart';
@@ -16,8 +17,17 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   int _index = 1;
 
+  @override void initState() {
+    String username = currentUser.username;
+    debugPrint("ChatScreen loaded for user $username");
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
+
+
+
     appBar: chatAppBar(context),
     body: const ChatBody(),
     floatingActionButton: chatFab(),

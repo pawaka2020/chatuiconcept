@@ -17,11 +17,6 @@ class ChatUserRepo {
     this.batchInterval = const Duration(seconds: 5),
   });
 
-  // ChatUser create()
-  // {
-  //
-  // }
-
   Future<void> queueUser(ChatUser user) async {
     _userQueue.add(user);
 
