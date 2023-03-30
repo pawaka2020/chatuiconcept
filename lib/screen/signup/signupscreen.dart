@@ -137,20 +137,3 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 }
-
-
-
-
-// Future<Message> authGetMessage(String token) async {
-//   Message message;
-//   final url = Uri.parse('https://<your-supabase-url>/rest/v1/messages');
-//   final headers = {'Authorization': 'Bearer $token'};
-//   final response = await http.get(url, headers: headers);
-//
-//   if (response.statusCode == 200) {
-//     message = json.decode(response.body);
-//   } else {
-//     throw Exception('Failed to load data');
-//   }
-//   return message;
-// }

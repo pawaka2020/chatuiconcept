@@ -8,6 +8,9 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../uifunctions.dart';
 import '../chat/chatscreen.dart';
 
+
+/// This class is not used because I have not yet figured out how to properly
+/// set up listener functions when a user verifies his email after registration.
 class VerifyScreen extends StatefulWidget {
   VerifyScreen({super.key});
 
@@ -17,30 +20,12 @@ class VerifyScreen extends StatefulWidget {
 
 class _VerifyScreenState extends State<VerifyScreen> {
   bool _isEmailVerified = false;
-  //StreamSubscription<AuthChangeEvent>? _authStateChangeSubscription;
   StreamSubscription<AuthState>? _authStateChangeSubscription;
 
+  //Doesn't work, but can still be a point of reference for others.
   void _listenToAuthStateChange(){
     final auth = supabaseClient.auth;
     auth.onAuthStateChange.listen((event) {
-      //if(auth.currentUser?.emailConfirmedAt != null){
-      // if (auth.onAuthStateChange)
-      //if(auth.currentUser?.lastSignInAt!= null){
-        // String name = auth.currentUser?.userMetadata!["username"];
-        // debugPrint("email for $name verified");
-        // setState(() {
-        //   _isEmailVerified = true;
-        // });
-        // ChatUser user = ChatUser(
-        //     auth.currentUser!.id,
-        //     auth.currentUser?.userMetadata!['username'],
-        //     '',
-        //     '',
-        //     DateTime.now(),
-        //     []
-        // );
-        // ChatUserRepo().toSupabase(user);
-      //}
       String name = auth.currentUser?.userMetadata!["username"];
       debugPrint("email for $name verified");
       setState(() {
@@ -64,31 +49,14 @@ class _VerifyScreenState extends State<VerifyScreen> {
     while (abc) {
       currentUser = supabaseClient.auth.currentUser;
       debugPrint("identity of $currentUser?");
-      //final asd = supabaseClient.auth.
-      //debugPrint("value = ");
       await Future.delayed(const Duration(seconds: 2)); // wait for 10 seconds before checking again
     }
-    // email has been verified, do something here
-    String name = currentUser?.userMetadata!["username"];
-    debugPrint("email for $name verified");
-    setState(() {
-      _isEmailVerified = true;
-    });
-    ChatUser user = ChatUser(
-        currentUser!.id,
-        currentUser.userMetadata!['username'],
-        '',
-        '',
-        DateTime.now(),
-        []
-    );
-    ChatUserRepo().toSupabase(user);
+
   }
 
   @override
   void initState() {
     super.initState();
-    //_listenToAuthStateChange();
     checkEmailVerified();
   }
   void _onButtonPressed(){
@@ -122,7 +90,6 @@ class _VerifyScreenState extends State<VerifyScreen> {
   }
 
   Widget _buildVerifyText(String username) {
-    String username2 = "Johnny";
     return const Text(
       'Thank you for registering. Please check your email for verification.',
       textAlign: TextAlign.center,

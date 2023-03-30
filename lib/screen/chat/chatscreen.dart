@@ -25,9 +25,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-
-
-
     appBar: chatAppBar(context),
     body: const ChatBody(),
     floatingActionButton: chatFab(),

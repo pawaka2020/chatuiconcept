@@ -20,43 +20,10 @@ class _SignInScreenState extends State<SignInScreen> {
   String _email = '';
   String _password = '';
 
-  Future<void> _signIn2() async {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      debugPrint('_email: $_email, _password: $_password');
-      try {
-        final response = await supabaseClient.auth.signInWithPassword(
-          email: _email, password: _password,
-        );
-        if (response.user?.id != null){
-          currentUser = ChatUser(
-              response.user!.id,
-              response.user?.userMetadata!['username'],
-              '',
-              '',
-              DateTime.now(),
-              []
-          );
-          navigateTo(context, const ChatScreen());
-        }
-      } on AuthException catch (e) {
-        if (e.statusCode != null) {
-          // Alert user that their email or password is incorrect
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Wrong email or password. Please try again.'),
-            ),
-          );
-        }
-      }
-    }
-  }
-
   Future<void> _signIn() async {
     if (_formKey.currentState!.validate()){
       _formKey.currentState!.save();
       await ChatUserAuth().signIn(_email, _password, context);
-      navigateTo(context, const ChatScreen());
     }
   }
 
@@ -111,7 +78,7 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Sign Up'),
+          title: const Text('Sign In'),
         ),
         body: SingleChildScrollView(
           child: Padding(

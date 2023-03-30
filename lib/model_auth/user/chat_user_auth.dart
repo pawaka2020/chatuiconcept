@@ -3,9 +3,12 @@ import 'package:chatuiconcept/model_auth/user/chat_user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../screen/chat/chatscreen.dart';
 import '../../singletons.dart';
 import 'package:chatuiconcept/model_auth/user/chat_user_repo.dart';
-//todo: actually show a ui message that sign up has failed and contact customer support.
+
+import '../../uifunctions.dart';
+
 class ChatUserAuth
 {
   Future<void> signUp(String username, String email, String password) async {
@@ -13,6 +16,8 @@ class ChatUserAuth
       email: email,
       password: password,
       data: {'username': username},
+      emailRedirectTo: ""
+
     );
     var usernameAuth = response.user?.userMetadata!['username'];
     if (usernameAuth != username) {
@@ -47,7 +52,7 @@ class ChatUserAuth
               DateTime.now(),
               []
           );
-          //navigateTo(context, const ChatScreen());
+          navigateTo(context, const ChatScreen());
         }
       } on AuthException catch (e) {
         if (e.statusCode != null) {

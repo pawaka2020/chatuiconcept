@@ -7,7 +7,7 @@ class MessageBody extends StatelessWidget {
   const MessageBody({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) => Column(children:[
-    chatLogs(),  //problem is found here
+    chatLogs(),  //messages are displayed here.
     const ChatInputField()
   ]);
 }

@@ -10,8 +10,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../singletons.dart';
 
+///doesn't work.
 void emailVerifyListener() {
-
   StreamSubscription<AuthState> abc2 = supabaseClient.auth.onAuthStateChange.listen((event) {
     if (event.event == AuthChangeEvent.signedIn){
       if (supabaseClient.auth.currentUser!.emailConfirmedAt == null)

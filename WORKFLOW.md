@@ -19,15 +19,20 @@ the other for cloud Supabase for early dev.
 3. SigningScreen
 3.1 Shows app logo art, 'Sign in' and 'Sign up' buttons.
 3.2 (TODO) Supabase Auth again allows already logged in users to skip this screen.
-3.3 (TODO) 'Sign up' leads to SignUpScreen, but for now just HelloWorld.
-3.4 (TODO) 'Sign in' leads to SignInScreen built with Supabase Auth.
+3.3 'Sign up' leads to SignUpScreen.
+3.4 'Sign in' leads to SignInScreen.
 3.5 For now 'Sign in' leads to ChatScreen.
 
 4. SignUpScreen (TODO)
+4.1 Only username, email and password, but later can add field to upload avatar(WIP)
+4.2 Leads to ChatScreen after successful signup, but stays in event of failure (ie failure of sending email verification)
+4.3 On Cloud hosted Supabase I was able to disable email verification but not on self hosted.
+4.4 After Supabath Auth adds user, a user is also simultaneously added in 'chat_users_auth'
 
-5. SignInScreen (TODO)
+6. SignInScreen
+5.1 Signs in with already registered users. 
 
-6. ChatScreen
+7. ChatScreen
 6.1 Shows a main UI (ChatBody) of last messages sent to the user.
 6.2 (TODO) Floating action button to enable user to initiate a new conversation.
 6.3 (TODO) Phone icon to enable user to call friends. Only friends, not un-added contacts.
@@ -38,7 +43,7 @@ the other for cloud Supabase for early dev.
 I will create a true table derived from 'messages' to replace 'chat'
 6.8 Use clicks any item on list of bottomBody to go to MessageScreen
 
-7. MessageScreen
+8. MessageScreen
 7.1 Contains green bar on top (messageAppBar) and conversation UI (messageBody) 
 7.2 messageAppBar displays user image, name, time active, 
 7.3 (TODO) logic for phone call button on messageAppBar
@@ -73,8 +78,10 @@ DATABASE:
 1.4 PostgreSQL-based with ability to also write SQL functions inside and execute cron jobs.
 1.5 Either we use Supabase Storage to keep files, or we use XML
 1.6 We may use other db types like MongoDB for release version.
+1.7 Supabase self-host has problems with Supabase Auth registration and login.
+1.8 It is recommended to use cloud host first for development then use another db for production release.
 
-2. XML
+3. XML
 2.1: Offline persistence.
 2.2: Files from Supabase saved here as well.
 

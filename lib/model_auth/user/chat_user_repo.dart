@@ -25,6 +25,8 @@ class ChatUserRepo {
     });
   }
 
+  //batch-write users.
+  //may not be necessary if we use Socket.io
   Future<void> _writeUsers() async {
     if (_userQueue.isEmpty) {
       _timer?.cancel();
@@ -46,11 +48,13 @@ class ChatUserRepo {
     }
   }
 
+  //writes to Supabase table
   Future<void> toSupabase(ChatUser user) async {
     await supabaseClient.from(tableName).insert(user.toMap());
     debugPrint("ChatUser object inserted to $tableName for ${user.username}");
   }
 
+  //reads from Supabase table
   Future<List> fromSupabase(bool test) async {
     final response = await supabaseClient.from(tableName).select();
     List<dynamic> jsonArray = jsonDecode(jsonEncode(response));

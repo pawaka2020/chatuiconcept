@@ -28,8 +28,8 @@ class Message{
     }
   }
 
-class MessageService extends Services{
-  @override
+class MessageService{
+
   List getOffline() {
     return [
       Message(
@@ -77,7 +77,53 @@ class MessageService extends Services{
     ];
   }
 
-  @override
+  Future<List> getOffline2() async{
+    return [
+      Message(
+        "Hi Sajol,",
+        MessageType.text,
+        MessageStatus.viewed,
+        false,
+      ),
+      Message(
+        "Hello, How are you?",
+        MessageType.text,
+        MessageStatus.viewed,
+        true,
+      ),
+      Message(
+        "",
+        MessageType.audio,
+        MessageStatus.viewed,
+        false,
+      ),
+      Message(
+        "",
+        MessageType.video,
+        MessageStatus.viewed,
+        true,
+      ),
+      Message(
+        "Error happened",
+        MessageType.text,
+        MessageStatus.not_sent,
+        true,
+      ),
+      Message(
+        "This looks great man!!",
+        MessageType.text,
+        MessageStatus.viewed,
+        false,
+      ),
+      Message(
+        "Glad you like it",
+        MessageType.text,
+        MessageStatus.not_view,
+        true,
+      ),
+    ];
+  }
+
   Future<List> getSupabase(bool test) async {
     final supabase = Supabase.instance.client;
     final response = await supabase.from('message').select();

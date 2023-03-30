@@ -16,7 +16,6 @@ class ChatBody extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     List<dynamic> chatlist = ChatService().getOffline();
-    //List<dynamic> chatlist = ChatService().getSupabase();
     return Column(children:[
       topBody(context),
       //bottomBody(chatlist, context)

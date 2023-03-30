@@ -1,3 +1,6 @@
+--- create this table first in Supabase before using ChatUser class.
+--- this table is required for user registration sign in and sign out to work.
+
 CREATE TABLE chat_users_auth (
 uid uuid PRIMARY KEY,
 username TEXT,
@@ -6,7 +9,9 @@ avatar_url TEXT,
 date_created TIMESTAMPTZ,
 contacts TEXT[] DEFAULT '{}'
 );
-CREATE INDEX name_idx_cua ON chat_users_auth (name);
+
+--- The function to enable batch writes
+--- but maybe no need implement batch writing if Socket.io is enough.
 
 CREATE OR REPLACE FUNCTION insert_users_auth_batch(users chat_users_auth[])
   RETURNS void AS
@@ -20,5 +25,7 @@ BEGIN
 END;
 $BODY$
   LANGUAGE plpgsql VOLATILE;
+
+-- cron job for insert_user_auth_batch
 
 SELECT cron.schedule('insert_users_batch_auth_job', '*/5 * * * * *', 'SELECT * FROM insert_users_auth_batch(ARRAY[]::chat_users_auth[])');

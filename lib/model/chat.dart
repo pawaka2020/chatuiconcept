@@ -3,6 +3,11 @@ import 'dart:convert';
 
 import 'package:chatuiconcept/model/services.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+//Not implemented yet.
+//this is a list of the last messages sent to a user
+//for now only an offline placeholder will be used
+//we need a better class for database (ie another field to denote id of recipent)
 class Chat {
   final String name;
   final String lastMessage;
@@ -23,6 +28,7 @@ class Chat {
 }
 
 class ChatService extends Services  {
+  //we use this one for now in our app.
   @override
   List getOffline(){
     return [
@@ -89,13 +95,9 @@ class ChatService extends Services  {
   Future<List> getSupabase(bool test) async {
     final supabase = Supabase.instance.client;
     final response = await supabase.from('chats').select();
-    //print(jsonEncode(response));
     List<dynamic> jsonArray = jsonDecode(jsonEncode(response));
     List<Chat> result = jsonArray.map((e) =>
         Chat.fromJson(e)).toList();
     return result;
-  }
-  List getsb() {
-    return [];
   }
 }
